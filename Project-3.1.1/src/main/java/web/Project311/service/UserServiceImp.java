@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImp implements UserService {
 
     private final UsersRepository usersRepository;
@@ -21,24 +20,26 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getUsers() {
         return usersRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUser(int id) {
         Optional<User> user = usersRepository.findById(id);
         return user.orElse(null);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void save(User user) {
         usersRepository.save(user);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void delete(int id) {
         usersRepository.deleteById(id);
     }
